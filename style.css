@@ -1,0 +1,27 @@
+header{
+  background: rgb(88, 5, 5);
+  color: white;
+  font-size: 80px;
+  margin-bottom: 60px;
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body{
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.hit{
+  background: rgb(88, 5, 5);
+  color: white;
+  height: 40px;
+  width: 100px;
+  border-radius: 10%;
+  margin-right: 40px;
+}
+.stand{
+  background: rgb(88, 5, 5);
+  color: white;
+  height: 40px;
+  width: 100px;
+  border-radius: 10%;
+}
