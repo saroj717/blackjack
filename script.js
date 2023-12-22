@@ -20,15 +20,13 @@ let canHit = true;
 
 
 // deck of cards - 52 (13*4)
-// shuffle several decks
+// shuffle decks
 // select a card (random)
 // deal hands to dealer and player
-// hide one of the dealer cards
-// give the options to hit or pass
+// give the options to hit or stand
 // - if hit add card
-// - if pass let dealer play
+// - if stand let dealer play
 // determine the winner
-// deal the next hand
 
 window.onload = function () {
   createDeck();
@@ -55,23 +53,16 @@ function shuffleDeck () {
 }
 
 function startGame () {
-  hidden = deck.pop();
-  dealersCards += `${hidden} ,`;
-  dealerSum += getValue(hidden);
-  dealerAceCount += checkAce(hidden);
-  while (dealerSum < 17) {
-    let card = deck.pop();
-    dealersCards += `${card} ,`;
-    dealerSum += getValue(card);
-    dealerAceCount += checkAce(card);
-    document.getElementById('dealerCard');
-  }
   for (let i = 0; i < 2; i++) {
+    hidden = deck.pop();
+    dealersCards += `${hidden} ,`;
+    dealerSum += getValue(hidden);
+    dealerAceCount += checkAce(hidden);
+
     let card = deck.pop();
     playersCards += `${card} ,`;
     playerSum += getValue(card);
-    playerAceCount += checkAce(card);
-    document.getElementById('playerCard'); 
+    playerAceCount += checkAce(card); 
   }
   document.getElementById('hit').addEventListener('click', hit);
   document.getElementById('stand').addEventListener('click', stand);
@@ -80,7 +71,6 @@ function startGame () {
 }
 
 function hit () {
-  console.log(`hit ${canHit}`);
   if(!canHit) {
     hitMessage.innerHTML = "You can not Hit anymore. Choose Stand."
     return;
@@ -90,7 +80,6 @@ function hit () {
   displayplayerCards.innerText = playersCards;
   playerSum += getValue(card);
   playerAceCount += checkAce(card);
-  document.getElementById('playerCard');
 
   if (reduceAce (playerSum, playerAceCount) > 21) {
     canHit = false;
@@ -98,6 +87,14 @@ function hit () {
 }
 
 function stand () {
+  while (dealerSum < 17) {
+    let card = deck.pop();
+    dealersCards += `${card} ,`;
+    displaydealerCards.innerText = dealersCards;
+    dealerSum += getValue(card);
+    dealerAceCount += checkAce(card);
+  }
+
   dealerSum = reduceAce(dealerSum, dealerAceCount);
   playerSum = reduceAce(playerSum, playerAceCount);
 
@@ -121,9 +118,6 @@ function stand () {
   else if (playerSum < dealerSum) {
       message = "You Lose!";
   }
-
-  // document.getElementById("dealerSum").innerText = dealerSum;
-  // document.getElementById("playerSum").innerText = playerSum;
   document.getElementById("message").innerText = message;
 }
 
